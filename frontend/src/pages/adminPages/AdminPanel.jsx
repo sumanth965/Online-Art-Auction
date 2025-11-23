@@ -1,6 +1,6 @@
 import React from 'react';
 import { Trash2 } from 'lucide-react';
-import useAppState from './useAppState';
+import useAppState from '../useAppState';
 
 const AdminPanel = () => {
   const {

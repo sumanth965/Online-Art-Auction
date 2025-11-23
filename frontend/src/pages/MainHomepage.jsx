@@ -15,7 +15,7 @@ export default function HomePage() {
       currentBid: 125000,
       bids: 24,
       timeLeft: "2h 30m",
-      image: "🌅",
+      image: "/Golden Sunset.png"
     },
     {
       id: 2,
@@ -24,7 +24,7 @@ export default function HomePage() {
       currentBid: 89500,
       bids: 18,
       timeLeft: "5h 15m",
-      image: "🌌",
+      image: "/Cosmic Dreams.png"
     },
     {
       id: 3,
@@ -33,7 +33,7 @@ export default function HomePage() {
       currentBid: 156000,
       bids: 31,
       timeLeft: "1h 45m",
-      image: "🌊",
+      image: "/Ocean Whispers.png"
     },
     {
       id: 4,
@@ -42,7 +42,7 @@ export default function HomePage() {
       currentBid: 98700,
       bids: 22,
       timeLeft: "3h 20m",
-      image: "🌲",
+      image: "/Forest Echo.png"
     },
     {
       id: 5,
@@ -51,7 +51,7 @@ export default function HomePage() {
       currentBid: 142300,
       bids: 29,
       timeLeft: "4h 10m",
-      image: "🌃",
+      image: "/Midnight City.png"
     },
     {
       id: 6,
@@ -60,7 +60,7 @@ export default function HomePage() {
       currentBid: 111500,
       bids: 26,
       timeLeft: "2h 55m",
-      image: "🌹",
+      image: "/Desert Rose.png"
     },
   ]);
 
@@ -182,11 +182,16 @@ export default function HomePage() {
               >
                 {/* Artwork Image */}
                 <div className="relative h-56 overflow-hidden flex items-center justify-center bg-gradient-to-br from-amber-800/20 to-gray-800 text-6xl group-hover:opacity-80 transition-all">
-                  {artwork.image}
+                  <img
+                    src={artwork.image}
+                    alt={artwork.title}
+                    className="w-full h-full object-cover"
+                  />
                   <div className="absolute top-3 right-3 bg-gradient-to-r from-red-500 to-red-700 px-3 py-1 rounded-full text-xs font-bold tracking-wide shadow-md">
                     🔴 LIVE
                   </div>
                 </div>
+
 
                 {/* Content */}
                 <div className="p-6 space-y-4">
