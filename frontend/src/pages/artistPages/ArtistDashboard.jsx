@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Plus, Trash2, Clock } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const ArtistDashboard = () => {
   const [activeTab, setActiveTab] = useState("approved");
@@ -11,7 +12,7 @@ const ArtistDashboard = () => {
     description: "",
     image: null,
   });
-
+  const navigate = useNavigate();
   const [approvedArtworks, setApprovedArtworks] = useState([]);
   const [pendingArtworks, setPendingArtworks] = useState([]);
 
@@ -172,8 +173,8 @@ const ArtistDashboard = () => {
             <button
               onClick={() => setActiveTab("approved")}
               className={`px-4 py-2 rounded-lg font-semibold transition-colors ${activeTab === "approved"
-                  ? "bg-amber-500 text-gray-900"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                ? "bg-amber-500 text-gray-900"
+                : "bg-gray-700 text-gray-300 hover:bg-gray-600"
                 }`}
             >
               Approved ({approvedArtworks.length})
@@ -181,8 +182,8 @@ const ArtistDashboard = () => {
             <button
               onClick={() => setActiveTab("pending")}
               className={`px-4 py-2 rounded-lg font-semibold transition-colors ${activeTab === "pending"
-                  ? "bg-amber-500 text-gray-900"
-                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                ? "bg-amber-500 text-gray-900"
+                : "bg-gray-700 text-gray-300 hover:bg-gray-600"
                 }`}
             >
               Pending ({pendingArtworks.length})
@@ -208,9 +209,13 @@ const ArtistDashboard = () => {
                         />
 
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                          <button className="flex-1 bg-amber-400 text-slate-900 py-2 rounded-lg font-semibold text-sm hover:bg-amber-300 transition-colors duration-200">
-                            View Details
+                          <button
+                            onClick={() => navigate(`/bid/${art._id}`)}
+                            className="flex-1 bg-amber-400 text-black font-bold py-2 rounded-lg hover:bg-amber-300"
+                          >
+                            Bid Now
                           </button>
+
                         </div>
                       </div>
 

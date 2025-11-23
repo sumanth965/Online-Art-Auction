@@ -80,3 +80,24 @@ export const getApprovedArtworks = async (req, res) => {
   }
 };
 
+export const placeBid = async (req, res) => {
+  try {
+    const { amount, user } = req.body;
+    const art = await Artwork.findById(req.params.id);
+
+    if (!art) return res.status(404).json({ message: "Artwork not found" });
+
+    if (amount <= art.highestBid || amount <= art.basePrice) {
+      return res.status(400).json({ message: "Bid must be higher than current bid" });
+    }
+
+    art.bids.push({ amount, user });
+    art.highestBid = amount;
+
+    await art.save();
+    res.json({ message: "Bid placed successfully", highestBid: art.highestBid });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+

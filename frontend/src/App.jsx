@@ -15,6 +15,7 @@ import { LoginPage } from "./pages/loginPage/LoginPage";
 import AdminLoginPage from "./pages/loginPage/AdminLoginPage";
 import BuyerLoginPage from "./pages/loginPage/BuyerLoginPage";
 import ArtistLoginPage from "./pages/loginPage/ArtistLoginPage";
+import BidPage from "./pages/BidPage";
 import useAppState from "./useAppState";
 
 function App() {
@@ -77,6 +78,8 @@ function App() {
           <Route path="/admin-panel" element={<AdminPanel />} />
           <Route path="/analytics" element={<AnalyticsPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/bid/:id" element={<BidPage />} />
+
           <Route
             path="/buyer-login"
             element={<BuyerLoginPage handleLogin={app.handleLogin} />}
