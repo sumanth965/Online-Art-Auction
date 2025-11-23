@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import artworkRoutes from "./routes/artworkRoutes.js";
 import artistRoutes from "./routes/artistRoutes.js"
+import buyerRoutes from "./routes/buyerRoutes.js"
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -22,6 +23,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Routes
 app.use("/api/artworks", artworkRoutes);
 app.use("/api/artists", artistRoutes);
+app.use("/api/buyers", buyerRoutes);
 
 // Default route
 app.get("/", (req, res) => {

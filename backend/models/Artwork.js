@@ -6,6 +6,11 @@ const artworkSchema = new mongoose.Schema({
   basePrice: Number,
   description: String,
   image: String,
+  status: {
+    type: String,
+    enum: ["pending", "approved", "rejected"],
+    default: "pending",
+  },
   createdAt: { type: Date, default: Date.now },
 });
 

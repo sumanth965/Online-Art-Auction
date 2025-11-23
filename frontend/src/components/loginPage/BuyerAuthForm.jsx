@@ -1,15 +1,33 @@
 import React, { useState } from "react";
-import { Eye, EyeOff, Mail, Lock, UserPlus, LogIn, AlertCircle, CheckCircle, Loader, } from "lucide-react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+
+import {
+    Eye,
+    EyeOff,
+    Mail,
+    Lock,
+    UserPlus,
+    LogIn,
+    AlertCircle,
+    CheckCircle,
+    Loader,
+} from "lucide-react";
 
 const BuyerAuthForm = ({
     isSignUp,
     setIsSignUp,
-    handleLogin,
     success,
     setSuccess,
     error,
     setError,
 }) => {
+    const navigate = useNavigate();
+    const { login } = useAuth();
+
+    const API_URL = "http://localhost:5000/api/buyers";
+
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
@@ -18,7 +36,8 @@ const BuyerAuthForm = ({
     const [loading, setLoading] = useState(false);
     const [focusedField, setFocusedField] = useState(null);
 
-    const handleSubmit = (e) => {
+    // ---------------- HANDLE SUBMIT ----------------
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
         setSuccess(false);
@@ -27,7 +46,6 @@ const BuyerAuthForm = ({
             setError("Please fill in all fields");
             return;
         }
-
         if (!isSignUp && (!email || !password)) {
             setError("Please fill in all fields");
             return;
@@ -38,24 +56,55 @@ const BuyerAuthForm = ({
             return;
         }
 
-        if (!isSignUp && (email !== "buyer@gmail.com" || password !== "123")) {
-            setError("Invalid buyer credentials");
-            return;
-        }
-
         setLoading(true);
 
-        setTimeout(() => {
+        try {
+            if (isSignUp) {
+                // ---------------- SIGN UP ----------------
+                const res = await axios.post(`${API_URL}/register`, {
+                    name,
+                    email,
+                    password,
+                });
+
+                if (res.data.success) {
+                    setSuccess(true);
+
+                    setTimeout(() => {
+                        setIsSignUp(false);
+                        setSuccess(false);
+                        setEmail("");
+                        setPassword("");
+                        setName("");
+                    }, 1500);
+                }
+            } else {
+                // ---------------- LOGIN ----------------
+                const res = await axios.post(`${API_URL}/login`, {
+                    email,
+                    password,
+                });
+
+                if (res.data.success) {
+                    setSuccess(true);
+
+                    if (rememberMe) {
+                        localStorage.setItem("buyerToken", res.data.token);
+                    }
+
+                    login("Buyer");
+
+                    setTimeout(() => {
+                        navigate("/artworks");
+                    }, 1500);
+                }
+            }
+        } catch (err) {
+            setError(err.response?.data?.message || "Server error. Please try again.");
+        } finally {
             setLoading(false);
-            setSuccess(true);
-
-            setTimeout(() => {
-                handleLogin("Buyer", "buyerLoggedIn"); // ⭐ CORRECT FOR BUYER ⭐
-            }, 1500);
-
-        }, 1500);
+        }
     };
-
 
     const fillTestCredentials = () => {
         setEmail("buyer@gmail.com");
@@ -74,9 +123,7 @@ const BuyerAuthForm = ({
             {success && (
                 <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3 mb-4 flex items-center gap-3">
                     <CheckCircle size={16} className="text-blue-400" />
-                    <p className="text-blue-300 text-sm">
-                        Success! Redirecting...
-                    </p>
+                    <p className="text-blue-300 text-sm">Success! Redirecting...</p>
                 </div>
             )}
 
@@ -94,15 +141,15 @@ const BuyerAuthForm = ({
                             onFocus={() => setFocusedField("name")}
                             onBlur={() => setFocusedField(null)}
                             className={`w-full pl-4 pr-4 py-3 bg-gray-700/20 border rounded-lg text-gray-100 placeholder-gray-500 text-sm transition-all ${focusedField === "name"
-                                ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
-                                : "border-gray-600/30"
+                                    ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
+                                    : "border-gray-600/30"
                                 }`}
                             disabled={loading}
                         />
                     </div>
                 )}
 
-                {/* Email */}
+                {/* EMAIL */}
                 <div>
                     <label className="block text-xs font-semibold text-gray-300 mb-3 uppercase tracking-wider">
                         Email Address
@@ -117,15 +164,15 @@ const BuyerAuthForm = ({
                             onBlur={() => setFocusedField(null)}
                             placeholder="you@example.com"
                             className={`w-full pl-10 pr-4 py-3 bg-gray-700/20 border rounded-lg text-gray-100 placeholder-gray-500 text-sm transition-all ${focusedField === "email"
-                                ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
-                                : "border-gray-600/30"
+                                    ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
+                                    : "border-gray-600/30"
                                 }`}
                             disabled={loading}
                         />
                     </div>
                 </div>
 
-                {/* Password */}
+                {/* PASSWORD */}
                 <div>
                     <label className="block text-xs font-semibold text-gray-300 mb-3 uppercase tracking-wider">
                         Password
@@ -140,11 +187,12 @@ const BuyerAuthForm = ({
                             onBlur={() => setFocusedField(null)}
                             placeholder="••••••••"
                             className={`w-full pl-10 pr-10 py-3 bg-gray-700/20 border rounded-lg text-gray-100 placeholder-gray-500 text-sm transition-all ${focusedField === "password"
-                                ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
-                                : "border-gray-600/30"
+                                    ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
+                                    : "border-gray-600/30"
                                 }`}
                             disabled={loading}
                         />
+
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
@@ -164,21 +212,19 @@ const BuyerAuthForm = ({
                             onChange={(e) => setRememberMe(e.target.checked)}
                             className="w-4 h-4 rounded border-gray-600/30 bg-gray-700/20 cursor-pointer accent-blue-500"
                         />
-                        <label
-                            htmlFor="remember"
-                            className="ml-2.5 text-xs text-gray-400 cursor-pointer"
-                        >
+                        <label htmlFor="remember" className="ml-2.5 text-xs text-gray-400 cursor-pointer">
                             Remember me for 30 days
                         </label>
                     </div>
                 )}
 
+                {/* BUTTON */}
                 <button
                     type="submit"
                     disabled={loading}
                     className={`w-full py-3 px-4 rounded-lg font-semibold text-sm tracking-wide transition-all duration-300 ${loading
-                        ? "bg-gradient-to-r from-blue-500 to-blue-600 opacity-50 cursor-not-allowed"
-                        : "bg-gradient-to-r from-blue-500 to-blue-600 text-gray-900 shadow-lg shadow-blue-500/20"
+                            ? "bg-gradient-to-r from-blue-500 to-blue-600 opacity-50 cursor-not-allowed"
+                            : "bg-gradient-to-r from-blue-500 to-blue-600 text-gray-900 shadow-lg shadow-blue-500/20"
                         }`}
                 >
                     <div className="flex items-center justify-center">
@@ -200,7 +246,6 @@ const BuyerAuthForm = ({
                 </button>
             </form>
 
-            {/* Demo button & toggle */}
             {!isSignUp && (
                 <>
                     <div className="flex items-center gap-3 mb-6">
@@ -221,7 +266,7 @@ const BuyerAuthForm = ({
 
             <div className="text-center mt-6">
                 <p className="text-gray-400 text-sm">
-                    {isSignUp ? "Already have an account?" : "New to the marketplace?"}{" "}
+                    {isSignUp ? "Already have an account?" : "New to the marketplace?"}
                     <button
                         type="button"
                         onClick={() => {

@@ -1,6 +1,6 @@
 import Artwork from "../models/Artwork.js";
 
-// ✅ Get all artworks
+// Get all artworks
 export const getArtworks = async (req, res) => {
   try {
     const artworks = await Artwork.find().sort({ createdAt: -1 });
@@ -10,7 +10,7 @@ export const getArtworks = async (req, res) => {
   }
 };
 
-// ✅ Upload artwork
+// Upload artwork
 export const uploadArtwork = async (req, res) => {
   try {
     const { title, category, basePrice, description } = req.body;
@@ -30,7 +30,7 @@ export const uploadArtwork = async (req, res) => {
   }
 };
 
-// ✅ Delete artwork
+// Delete artwork
 export const deleteArtwork = async (req, res) => {
   try {
     await Artwork.findByIdAndDelete(req.params.id);
@@ -39,3 +39,44 @@ export const deleteArtwork = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// Approve Artwork
+export const approveArtwork = async (req, res) => {
+  try {
+    await Artwork.findByIdAndUpdate(req.params.id, { status: "approved" });
+    res.json({ success: true, message: "Artwork approved" });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+};
+
+// Reject Artwork
+export const rejectArtwork = async (req, res) => {
+  try {
+    await Artwork.findByIdAndUpdate(req.params.id, { status: "rejected" });
+    res.json({ success: true, message: "Artwork rejected" });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+};
+
+// Get Pending Artworks
+export const getPendingArtworks = async (req, res) => {
+  try {
+    const pending = await Artwork.find({ status: "pending" });
+    res.json(pending);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
+export const getApprovedArtworks = async (req, res) => {
+  try {
+    const artworks = await Artwork.find({ status: "approved" });
+    res.json(artworks);
+  } catch (err) {
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
