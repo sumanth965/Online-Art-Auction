@@ -95,7 +95,7 @@ const BuyerAuthForm = ({
                     login("Buyer");
 
                     setTimeout(() => {
-                        navigate("/artworks");
+                        navigate("/buyer-dashboard");
                     }, 1500);
                 }
             }
@@ -107,7 +107,7 @@ const BuyerAuthForm = ({
     };
 
     const fillTestCredentials = () => {
-        setEmail("buyer@gmail.com");
+        setEmail("bbuyer@gmail.com");
         setPassword("123");
         setError("");
     };

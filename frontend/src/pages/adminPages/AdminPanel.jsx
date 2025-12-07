@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import useAppState from "../adminPages/useAppState";
-
+import QueryPage from "../adminPages/QueryPage";
 const AdminPanel = () => {
   const {
     pendingArtworks,
@@ -8,14 +8,21 @@ const AdminPanel = () => {
     handleRejectArtwork,
   } = useAppState();
 
+
+  
+
   return (
     <section className="min-h-screen bg-gray-900 py-12">
       <div className="max-w-7xl mx-auto px-4">
+        {/* MAIN TITLE */}
         <h1 className="text-4xl font-bold mb-8 bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">
           Admin Panel
         </h1>
 
-        <div className="bg-gray-800 p-6 rounded-2xl border border-gray-700 mb-10">
+        {/* ============================ */}
+        {/*   PENDING ARTWORKS SECTION    */}
+        {/* ============================ */}
+        <div className="bg-gray-800 p-6 rounded-2xl border border-gray-700 mb-12">
           <h2 className="text-2xl font-bold mb-4">Pending Artworks</h2>
 
           {pendingArtworks.length > 0 ? (
@@ -38,7 +45,7 @@ const AdminPanel = () => {
                   <h3 className="font-semibold text-xl text-white">{art.title}</h3>
                   <p className="text-gray-400 text-sm">Category: {art.category}</p>
                   <p className="text-gray-400 text-sm">Base Price: ₹{art.basePrice}</p>
-                  <p className="text-gray-400 text-sm mb-2">Description: {art.description}</p>
+                  <p className="text-gray-400 text-sm">Description: {art.description}</p>
                   <p className="text-gray-400 text-sm">Status: {art.status}</p>
                 </div>
 
@@ -64,6 +71,8 @@ const AdminPanel = () => {
             <p className="text-gray-400">No pending artworks available.</p>
           )}
         </div>
+
+       <QueryPage />
       </div>
     </section>
   );

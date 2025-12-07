@@ -7,6 +7,7 @@ import artistRoutes from "./routes/artistRoutes.js"
 import buyerRoutes from "./routes/buyerRoutes.js"
 import path from "path";
 import { fileURLToPath } from "url";
+import queryRoutes from "./routes/queryRoutes.js";
 
 dotenv.config(); // ✅ Load environment variables FIRST
 connectDB();     // ✅ Connect after dotenv is loaded
@@ -19,6 +20,7 @@ const __dirname = path.dirname(__filename);
 app.use(cors());
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/api/queries", queryRoutes);
 
 // Routes
 app.use("/api/artworks", artworkRoutes);

@@ -143,7 +143,8 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-5 justify-center opacity-0 animate-[slide-up_0.8s_ease-out_0.4s_forwards]">
-            <button className="px-10 py-3.5 bg-gradient-to-r from-amber-600 to-yellow-500 text-gray-900 rounded-xl font-semibold tracking-wide shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 hover:scale-[1.02] transition-all duration-300 glow-pulse">
+            <button onClick={() => navigate("/artworks")}
+              className="px-10 py-3.5 bg-gradient-to-r from-amber-600 to-yellow-500 text-gray-900 rounded-xl font-semibold tracking-wide shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 hover:scale-[1.02] transition-all duration-300 glow-pulse">
               Explore Auctions
             </button>
 
@@ -174,7 +175,8 @@ export default function HomePage() {
             {artworks.map((artwork, idx) => (
               <div
                 key={artwork.id}
-                onClick={() => navigate(`/artwork/${artwork.id}`)}
+                onClick={() => navigate("/artworks")}
+
                 className="relative group bg-gradient-to-br from-gray-800 via-gray-900 to-black rounded-3xl overflow-hidden border border-gray-700 cursor-pointer hover:border-amber-400/70 transition-all duration-500  hover:shadow-[0_0_30px_-10px_rgba(251,191,36,0.6)]"
                 style={{
                   animationDelay: `${0.1 * (idx + 1)}s`,
@@ -222,10 +224,9 @@ export default function HomePage() {
                   </div>
 
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/artwork/${artwork.id}`);
-                    }}
+                    onClick={() => navigate("/artworks")}
+
+
                     className="w-full py-2 mt-4 bg-gradient-to-r from-amber-400 to-amber-600 text-gray-900 rounded-lg font-bold hover:from-amber-300 hover:to-amber-500 transition-all shadow-md group-hover:shadow-lg"
                   >
                     View Details →

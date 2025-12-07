@@ -101,3 +101,18 @@ export const placeBid = async (req, res) => {
   }
 };
 
+export const finalizeAuction = async (req, res) => {
+  try {
+    const artwork = await Artwork.findById(req.params.id);
+    if (!artwork) return res.status(404).json({ message: "Artwork not found" });
+
+    artwork.sold = true;
+    artwork.winner = req.body.winner || null;
+    artwork.finalPrice = req.body.highestBid || artwork.basePrice;
+
+    await artwork.save();
+    res.json({ message: `Auction ended. Winner: ${artwork.winner}` });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

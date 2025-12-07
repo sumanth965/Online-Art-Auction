@@ -1,7 +1,6 @@
 import express from "express";
 import upload from "../middleware/uploadMiddleware.js";
-import Artwork from "../models/Artwork.js";   // <--- ADD THIS IMPORT
-
+import Artwork from "../models/Artwork.js";
 import {
   getArtworks,
   uploadArtwork,
@@ -11,6 +10,7 @@ import {
   rejectArtwork,
   getApprovedArtworks,
   placeBid,
+  finalizeAuction, // 👈 add controller function
 } from "../controllers/artworkController.js";
 
 const router = express.Router();
@@ -23,7 +23,6 @@ router.put("/approve/:id", approveArtwork);
 router.put("/reject/:id", rejectArtwork);
 router.get("/", getApprovedArtworks);
 
-// ⭐ SINGLE ARTWORK ROUTE
 router.get("/:id", async (req, res) => {
   try {
     const art = await Artwork.findById(req.params.id);
@@ -35,5 +34,8 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/bid/:id", placeBid);
+
+// ✅ Use router.post instead of app.post
+router.post("/finalize/:id", finalizeAuction);
 
 export default router;

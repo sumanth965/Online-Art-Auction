@@ -79,6 +79,8 @@ function App() {
           <Route path="/analytics" element={<AnalyticsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/bid/:id" element={<BidPage />} />
+          {/* <Route path="/artwork/:id" element={<ArtworkDetailPage />} /> */}
+
 
           <Route
             path="/buyer-login"

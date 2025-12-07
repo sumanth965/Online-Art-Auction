@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Eye } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 const ArtworkListingPage = ({
     setSelectedArtwork,
     setCurrentPage
@@ -14,6 +14,7 @@ const ArtworkListingPage = ({
     const [filterCategory, setFilterCategory] = useState("all");
     const [filterPrice, setFilterPrice] = useState("all");
     const [filterStatus, setFilterStatus] = useState("all");
+    const navigate = useNavigate();
 
     // Fetch Artworks
     const fetchArtworks = async () => {
@@ -99,7 +100,7 @@ const ArtworkListingPage = ({
                             <option value="high">Above ₹3 Lakh</option>
                         </select>
 
-                        <select
+                        {/* <select
                             value={filterStatus}
                             onChange={(e) => setFilterStatus(e.target.value)}
                             className="px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white"
@@ -108,7 +109,7 @@ const ArtworkListingPage = ({
                             <option value="approved">Approved</option>
                             <option value="pending">Pending</option>
                             <option value="rejected">Rejected</option>
-                        </select>
+                        </select> */}
                     </div>
 
                     <p className="text-gray-400">Found {filteredArtworks.length} artworks</p>
@@ -129,11 +130,12 @@ const ArtworkListingPage = ({
                                 <p className="text-amber-400 font-bold">₹{artwork.basePrice?.toLocaleString()}</p>
 
                                 <button
-                                    onClick={() => { setSelectedArtwork(artwork); setCurrentPage("artwork-detail"); }}
+                                    onClick={() => navigate(`/artwork/${artwork._id}`)}
                                     className="mt-4 w-full py-2 bg-amber-500 text-black rounded-lg flex justify-center gap-2 font-bold"
                                 >
                                     <Eye size={18} /> View Details
                                 </button>
+
                             </div>
                         </div>
                     ))}
