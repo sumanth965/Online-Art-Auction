@@ -88,7 +88,9 @@ router.post("/run", async (req, res) => {
                         {
                             $project: {
                                 title: 1,
-                                biddersCount: { $size: "$bids" }
+                                biddersCount: {
+                                    $size: { $ifNull: ["$bids", []] }
+                                }
                             }
                         },
                         { $match: { biddersCount: { $gte: 5 } } },
