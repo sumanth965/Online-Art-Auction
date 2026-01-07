@@ -1,119 +1,104 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
 
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
 
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CSS CDN (for fallback UI only) -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap"
+    rel="stylesheet"
+  >
 
   <!-- SEO -->
-  <meta name="description"
-    content="Online Art Auction platform to buy and sell artwork securely through live bidding." />
-  <meta name="robots" content="index, follow" />
-
-  <!-- Responsive -->
+  <meta name="description" content="Online Art Auction platform to buy and sell artwork securely." />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Online Art Auction</title>
+  <title>Art Auction</title>
+
+  <!-- 🔒 Scoped fallback CSS (does NOT affect Tailwind) -->
+  <style>
+    .fallback-container {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 2rem;
+      text-align: center;
+      max-width: 900px;
+      margin: auto;
+      color: #1f2937; /* gray-800 */
+    }
+
+    .fallback-title {
+      font-family: 'Alfa Slab One', cursive;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .fallback-subtitle {
+      font-size: 1rem;
+      color: #4b5563; /* gray-600 */
+      margin-bottom: 1.5rem;
+    }
+
+    .fallback-box {
+      border: 1px solid #e5e7eb; /* gray-200 */
+      border-radius: 8px;
+      padding: 1.5rem;
+      background-color: #f9fafb; /* gray-50 */
+    }
+
+    .fallback-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 1rem;
+    }
+
+    .fallback-list li {
+      padding: 0.3rem 0;
+    }
+
+    .fallback-warning {
+      margin-top: 2rem;
+      color: #b91c1c; /* red-700 */
+      font-weight: 600;
+    }
+  </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800">
+<body>
 
-  <!-- Fallback UI -->
+  <!-- ✅ Fallback UI -->
   <div id="root">
-
-    <!-- HERO SECTION -->
-    <header class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-16 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4" style="font-family:'Alfa Slab One', cursive;">
-        Online Art Auction
-      </h1>
-      <p class="text-lg md:text-xl max-w-2xl mx-auto">
-        Discover, bid, and collect exclusive artwork from talented artists around the world.
-      </p>
-    </header>
-
-    <!-- MAIN CONTENT -->
-    <main class="max-w-6xl mx-auto px-6 py-12">
-
-      <!-- Loading message -->
-      <p class="text-center text-gray-500 mb-8">
-        Loading application…
+    <div class="fallback-container">
+      <h1 class="fallback-title">Online Art Auction</h1>
+      <p class="fallback-subtitle">
+        Buy and sell artwork through secure online auctions.
       </p>
 
-      <!-- FEATURES -->
-      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="fallback-box">
+        <p>Loading application…</p>
+        <p>If this page does not load, JavaScript may be disabled.</p>
 
-        <div class="bg-white rounded-xl shadow p-6 text-center">
-          <h2 class="text-xl font-semibold mb-2">Browse Artworks</h2>
-          <p class="text-gray-600">
-            Explore artwork from different artists and styles.
-          </p>
-        </div>
-
-        <div class="bg-white rounded-xl shadow p-6 text-center">
-          <h2 class="text-xl font-semibold mb-2">Live Bidding</h2>
-          <p class="text-gray-600">
-            Participate in transparent and competitive auctions.
-          </p>
-        </div>
-
-        <div class="bg-white rounded-xl shadow p-6 text-center">
-          <h2 class="text-xl font-semibold mb-2">Sell Your Art</h2>
-          <p class="text-gray-600">
-            Artists can list artwork and reach global buyers.
-          </p>
-        </div>
-
-        <div class="bg-white rounded-xl shadow p-6 text-center">
-          <h2 class="text-xl font-semibold mb-2">Secure Platform</h2>
-          <p class="text-gray-600">
-            Safe, fair, and reliable auction experience.
-          </p>
-        </div>
-
-      </section>
-
-      <!-- JS MESSAGE -->
-      <div class="mt-12 text-center text-sm text-gray-500">
-        If the page does not load, please ensure
-        <span class="font-semibold">JavaScript is enabled</span>
-        in your browser.
+        <ul class="fallback-list">
+          <li>🎨 Browse artwork listings</li>
+          <li>🔨 Place bids on live auctions</li>
+          <li>🧑‍🎨 Sell your artwork as an artist</li>
+        </ul>
       </div>
 
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-gray-900 text-gray-300 py-6 text-center text-sm">
-      © 2026 Online Art Auction. All rights reserved.
-    </footer>
-
+      <noscript>
+        <div class="fallback-warning">
+          This application requires JavaScript to function properly.
+          Please enable JavaScript in your browser.
+        </div>
+      </noscript>
+    </div>
   </div>
 
-  <!-- No-JS Warning -->
-  <noscript>
-    <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 text-white text-center p-6">
-      <div class="bg-red-600 p-6 rounded-lg max-w-md">
-        <h2 class="text-2xl font-bold mb-2">JavaScript Required</h2>
-        <p>
-          This application requires JavaScript to work properly.
-          Please enable JavaScript in your browser.
-        </p>
-      </div>
-    </div>
-  </noscript>
-
-  <!-- React entry -->
-  <script type="module" src="/src/main.jsx"></script>
+  <!-- React Entry -->
+  <!-- <script type="module" src="/src/main.jsx"></script> -->
 
 </body>
-
 </html>
