@@ -3,18 +3,65 @@
 
 <head>
   <meta charset="UTF-8" />
+
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
 
+  <!-- SEO + Meta -->
+  <meta name="description" content="Online Art Auction platform to buy and sell artwork securely through live bidding." />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Responsive -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Art Auction</title>
+
+  <title>Online Art Auction</title>
 </head>
 
 <body>
-  <div id="root"></div>
+
+  <!-- Fallback UI (visible before React loads OR if JS fails) -->
+  <div id="root">
+    <header style="padding:20px; text-align:center; font-family:'Alfa Slab One', cursive;">
+      <h1>Online Art Auction</h1>
+      <p>Buy and sell artwork through secure online auctions.</p>
+    </header>
+
+    <main style="max-width:900px; margin:auto; padding:20px; font-family:Arial, sans-serif;">
+      <p>Loading application…</p>
+
+      <p>
+        If this page does not load, please make sure
+        <strong>JavaScript is enabled</strong> in your browser.
+      </p>
+
+      <section>
+        <h2>Platform Features</h2>
+        <ul>
+          <li>Browse artwork from different artists</li>
+          <li>Participate in live bidding</li>
+          <li>Sell artwork as an artist</li>
+          <li>Secure and transparent auctions</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <!-- Message shown ONLY when JavaScript is disabled -->
+  <noscript>
+    <div style="padding:20px; text-align:center; color:red; font-family:Arial, sans-serif;">
+      This application requires JavaScript to work properly.
+      Please enable JavaScript in your browser.
+    </div>
+  </noscript>
+
+  <!-- React entry -->
   <script type="module" src="/src/main.jsx"></script>
+
 </body>
 
 </html>

@@ -8,14 +8,14 @@ import HomePage from "./pages/MainHomepage";
 import ArtworkListingPage from "./pages/ArtworkListingPage";
 import ArtworkDetailPage from "./pages/ArtworkDetailPage";
 import ArtistDashboard from "./pages/artistPages/ArtistDashboard";
-import BuyerDashboard from "./pages/BuyerDashboard";
+import BuyerDashboard from "./pages/buyerPages/BuyerDashboard";
 import AdminPanel from "./pages/adminPages/AdminPanel";
 import { AnalyticsPage } from "./pages/AnalyticsPage";
 import { LoginPage } from "./pages/loginPage/LoginPage";
 import AdminLoginPage from "./pages/loginPage/AdminLoginPage";
 import BuyerLoginPage from "./pages/loginPage/BuyerLoginPage";
 import ArtistLoginPage from "./pages/loginPage/ArtistLoginPage";
-import BidPage from "./pages/BidPage";
+import BidPage from "./pages/buyerPages/BidPage";
 import useAppState from "./useAppState";
 
 function App() {
