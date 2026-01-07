@@ -14,54 +14,109 @@
   >
 
   <!-- SEO -->
-  <meta name="description" content="Online Art Auction platform to buy and sell artwork securely." />
+  <meta name="description" content="Premium online art auction platform to buy and sell artwork securely." />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Art Auction</title>
 
-  <!-- 🔒 Scoped fallback CSS (does NOT affect Tailwind) -->
+  <!-- 🔒 Scoped fallback styles (NO Tailwind conflict) -->
   <style>
-    .fallback-container {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      padding: 2rem;
-      text-align: center;
-      max-width: 900px;
-      margin: auto;
-      color: #1f2937; /* gray-800 */
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #f8fafc, #eef2f7);
     }
 
-    .fallback-title {
+    .fallback-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .fallback-card {
+      background: #ffffff;
+      max-width: 960px;
+      width: 100%;
+      padding: 3rem;
+      border-radius: 14px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    .fallback-logo {
       font-family: 'Alfa Slab One', cursive;
-      font-size: 2.2rem;
+      font-size: 2.5rem;
+      color: #111827;
       margin-bottom: 0.5rem;
     }
 
-    .fallback-subtitle {
-      font-size: 1rem;
-      color: #4b5563; /* gray-600 */
-      margin-bottom: 1.5rem;
+    .fallback-tagline {
+      color: #6b7280;
+      font-size: 1.05rem;
+      margin-bottom: 2.5rem;
     }
 
-    .fallback-box {
-      border: 1px solid #e5e7eb; /* gray-200 */
-      border-radius: 8px;
+    .fallback-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .fallback-feature {
       padding: 1.5rem;
-      background-color: #f9fafb; /* gray-50 */
+      border-radius: 10px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
     }
 
-    .fallback-list {
-      list-style: none;
-      padding: 0;
-      margin-top: 1rem;
+    .fallback-feature h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
+      color: #111827;
     }
 
-    .fallback-list li {
-      padding: 0.3rem 0;
+    .fallback-feature p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #4b5563;
     }
 
-    .fallback-warning {
+    .fallback-loading {
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+      color: #374151;
+    }
+
+    .fallback-loading span {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin: 0 3px;
+      background-color: #9ca3af;
+      border-radius: 50%;
+      animation: pulse 1.4s infinite both;
+    }
+
+    .fallback-loading span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .fallback-loading span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.3; }
+      20% { opacity: 1; }
+      100% { opacity: 0.3; }
+    }
+
+    .fallback-noscript {
       margin-top: 2rem;
-      color: #b91c1c; /* red-700 */
+      color: #b91c1c;
       font-weight: 600;
     }
   </style>
@@ -69,35 +124,48 @@
 
 <body>
 
-  <!-- ✅ Fallback UI -->
+  <!-- ✅ Professional fallback UI -->
   <div id="root">
-    <div class="fallback-container">
-      <h1 class="fallback-title">Online Art Auction</h1>
-      <p class="fallback-subtitle">
-        Buy and sell artwork through secure online auctions.
-      </p>
+    <div class="fallback-wrapper">
+      <div class="fallback-card">
 
-      <div class="fallback-box">
-        <p>Loading application…</p>
-        <p>If this page does not load, JavaScript may be disabled.</p>
+        <h1 class="fallback-logo">Online  Art Auction</h1>
+        <p class="fallback-tagline">
+          Discover, bid, and collect exclusive artwork from artists worldwide.
+        </p>
 
-        <ul class="fallback-list">
-          <li>🎨 Browse artwork listings</li>
-          <li>🔨 Place bids on live auctions</li>
-          <li>🧑‍🎨 Sell your artwork as an artist</li>
-        </ul>
-      </div>
-
-      <noscript>
-        <div class="fallback-warning">
-          This application requires JavaScript to function properly.
-          Please enable JavaScript in your browser.
+        <div class="fallback-grid">
+          <div class="fallback-feature">
+            <h3>Curated Artwork</h3>
+            <p>Handpicked collections from emerging and established artists.</p>
+          </div>
+          <div class="fallback-feature">
+            <h3>Live Bidding</h3>
+            <p>Real-time auctions with transparent bid history.</p>
+          </div>
+          <div class="fallback-feature">
+            <h3>Secure Platform</h3>
+            <p>Verified users, protected payments, and trusted transactions.</p>
+          </div>
         </div>
-      </noscript>
+
+        <div class="fallback-loading">
+          Loading application
+          <span></span><span></span><span></span>
+        </div>
+
+        <noscript>
+          <div class="fallback-noscript">
+            JavaScript is required to use this platform.
+            Please enable JavaScript in your browser.
+          </div>
+        </noscript>
+
+      </div>
     </div>
   </div>
 
-  <!-- React Entry -->
+  <!-- React entry -->
   <!-- <script type="module" src="/src/main.jsx"></script> -->
 
 </body>
