@@ -8,6 +8,7 @@ import {
     EyeOff,
     Mail,
     Lock,
+    User,
     UserPlus,
     LogIn,
     AlertCircle,
@@ -28,9 +29,11 @@ const BuyerAuthForm = ({
 
     const API_URL = "http://localhost:5000/api/buyers";
 
-    const [email, setEmail] = useState("");
     const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
     const [rememberMe, setRememberMe] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -42,11 +45,8 @@ const BuyerAuthForm = ({
         setError("");
         setSuccess(false);
 
-        if (isSignUp && (!name || !email || !password)) {
-            setError("Please fill in all fields");
-            return;
-        }
-        if (!isSignUp && (!email || !password)) {
+        // Validation
+        if (!email || !password || (isSignUp && !confirmPassword)) {
             setError("Please fill in all fields");
             return;
         }
@@ -56,11 +56,16 @@ const BuyerAuthForm = ({
             return;
         }
 
+        if (isSignUp && password !== confirmPassword) {
+            setError("Passwords do not match");
+            return;
+        }
+
         setLoading(true);
 
         try {
             if (isSignUp) {
-                // ---------------- SIGN UP ----------------
+                // -------- SIGN UP --------
                 const res = await axios.post(`${API_URL}/register`, {
                     name,
                     email,
@@ -69,17 +74,17 @@ const BuyerAuthForm = ({
 
                 if (res.data.success) {
                     setSuccess(true);
-
                     setTimeout(() => {
                         setIsSignUp(false);
-                        setSuccess(false);
+                        setName("");
                         setEmail("");
                         setPassword("");
-                        setName("");
+                        setConfirmPassword("");
+                        setSuccess(false);
                     }, 1500);
                 }
             } else {
-                // ---------------- LOGIN ----------------
+                // -------- SIGN IN --------
                 const res = await axios.post(`${API_URL}/login`, {
                     email,
                     password,
@@ -106,7 +111,9 @@ const BuyerAuthForm = ({
         }
     };
 
+    // Demo credentials
     const fillTestCredentials = () => {
+        setName("Demo Buyer");
         setEmail("bbuyer@gmail.com");
         setPassword("123");
         setError("");
@@ -114,40 +121,46 @@ const BuyerAuthForm = ({
 
     return (
         <>
+            {/* ALERTS */}
             {error && (
-                <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 mb-4 flex items-center gap-3">
+                <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 mb-4 flex gap-3">
                     <AlertCircle size={16} className="text-red-400" />
                     <p className="text-red-300 text-sm">{error}</p>
                 </div>
             )}
+
             {success && (
-                <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3 mb-4 flex items-center gap-3">
+                <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3 mb-4 flex gap-3">
                     <CheckCircle size={16} className="text-blue-400" />
                     <p className="text-blue-300 text-sm">Success! Redirecting...</p>
                 </div>
             )}
 
+            {/* FORM */}
             <form onSubmit={handleSubmit} className="space-y-5 mb-6">
+                {/* NAME (Both Sign In & Sign Up) */}
                 {isSignUp && (
                     <div>
                         <label className="block text-xs font-semibold text-gray-300 mb-3 uppercase tracking-wider">
                             Full Name
                         </label>
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            placeholder="John Doe"
-                            onFocus={() => setFocusedField("name")}
-                            onBlur={() => setFocusedField(null)}
-                            className={`w-full pl-4 pr-4 py-3 bg-gray-700/20 border rounded-lg text-gray-100 placeholder-gray-500 text-sm transition-all ${focusedField === "name"
+                        <div className="relative">
+                            <User className="absolute left-3.5 top-3.5 text-gray-600" size={18} />
+                            <input
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                onFocus={() => setFocusedField("name")}
+                                onBlur={() => setFocusedField(null)}
+                                placeholder="John Doe"
+                                className={`w-full pl-10 pr-4 py-3 bg-gray-700/20 border rounded-lg text-sm text-gray-100 ${focusedField === "name"
                                     ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
                                     : "border-gray-600/30"
-                                }`}
-                            disabled={loading}
-                        />
-                    </div>
-                )}
+                                    }`}
+                                disabled={loading}
+                            />
+                        </div>
+                    </div>)}
 
                 {/* EMAIL */}
                 <div>
@@ -163,9 +176,9 @@ const BuyerAuthForm = ({
                             onFocus={() => setFocusedField("email")}
                             onBlur={() => setFocusedField(null)}
                             placeholder="you@example.com"
-                            className={`w-full pl-10 pr-4 py-3 bg-gray-700/20 border rounded-lg text-gray-100 placeholder-gray-500 text-sm transition-all ${focusedField === "email"
-                                    ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
-                                    : "border-gray-600/30"
+                            className={`w-full pl-10 pr-4 py-3 bg-gray-700/20 border rounded-lg text-sm text-gray-100 ${focusedField === "email"
+                                ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
+                                : "border-gray-600/30"
                                 }`}
                             disabled={loading}
                         />
@@ -186,13 +199,12 @@ const BuyerAuthForm = ({
                             onFocus={() => setFocusedField("password")}
                             onBlur={() => setFocusedField(null)}
                             placeholder="••••••••"
-                            className={`w-full pl-10 pr-10 py-3 bg-gray-700/20 border rounded-lg text-gray-100 placeholder-gray-500 text-sm transition-all ${focusedField === "password"
-                                    ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
-                                    : "border-gray-600/30"
+                            className={`w-full pl-10 pr-10 py-3 bg-gray-700/20 border rounded-lg text-sm text-gray-100 ${focusedField === "password"
+                                ? "border-blue-500/50 bg-gray-700/30 shadow-lg shadow-blue-500/5"
+                                : "border-gray-600/30"
                                 }`}
                             disabled={loading}
                         />
-
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
@@ -203,83 +215,83 @@ const BuyerAuthForm = ({
                     </div>
                 </div>
 
+                {/* CONFIRM PASSWORD (Sign Up Only) */}
+                {isSignUp && (
+                    <div>
+                        <label className="block text-xs font-semibold text-gray-300 mb-3 uppercase tracking-wider">
+                            Confirm Password
+                        </label>
+                        <input
+                            type="password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            placeholder="••••••••"
+                            className="w-full px-4 py-3 bg-gray-700/20 border border-gray-600/30 rounded-lg text-sm text-gray-100"
+                            disabled={loading}
+                        />
+                    </div>
+                )}
+
+                {/* REMEMBER ME */}
                 {!isSignUp && (
                     <div className="flex items-center">
                         <input
                             type="checkbox"
-                            id="remember"
                             checked={rememberMe}
                             onChange={(e) => setRememberMe(e.target.checked)}
-                            className="w-4 h-4 rounded border-gray-600/30 bg-gray-700/20 cursor-pointer accent-blue-500"
+                            className="accent-blue-500"
                         />
-                        <label htmlFor="remember" className="ml-2.5 text-xs text-gray-400 cursor-pointer">
-                            Remember me for 30 days
-                        </label>
+                        <span className="ml-2 text-xs text-gray-400">Remember me for 30 days</span>
                     </div>
                 )}
 
-                {/* BUTTON */}
+                {/* SUBMIT BUTTON */}
                 <button
                     type="submit"
                     disabled={loading}
-                    className={`w-full py-3 px-4 rounded-lg font-semibold text-sm tracking-wide transition-all duration-300 ${loading
-                            ? "bg-gradient-to-r from-blue-500 to-blue-600 opacity-50 cursor-not-allowed"
-                            : "bg-gradient-to-r from-blue-500 to-blue-600 text-gray-900 shadow-lg shadow-blue-500/20"
+                    className={`w-full py-3 rounded-lg font-semibold text-sm transition-all ${loading
+                        ? "bg-blue-500/50 cursor-not-allowed"
+                        : "bg-gradient-to-r from-blue-500 to-blue-600 text-gray-900 shadow-lg shadow-blue-500/20"
                         }`}
                 >
-                    <div className="flex items-center justify-center">
-                        {loading ? (
-                            <>
-                                <Loader className="animate-spin mr-2" size={18} />
-                                {isSignUp ? "Creating Account..." : "Authenticating..."}
-                            </>
-                        ) : isSignUp ? (
-                            <>
-                                <UserPlus size={16} className="mr-2" /> Sign Up
-                            </>
-                        ) : (
-                            <>
-                                <LogIn size={16} className="mr-2" /> Sign In
-                            </>
-                        )}
-                    </div>
+                    {loading ? (
+                        <Loader className="animate-spin mx-auto" size={18} />
+                    ) : isSignUp ? (
+                        <span className="flex justify-center gap-2">
+                            <UserPlus size={16} /> Create Account
+                        </span>
+                    ) : (
+                        <span className="flex justify-center gap-2">
+                            <LogIn size={16} /> Sign In
+                        </span>
+                    )}
                 </button>
             </form>
 
+            {/* DEMO */}
             {!isSignUp && (
-                <>
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className="flex-1 h-px bg-gray-700/30" />
-                        <span className="text-xs text-gray-500">Demo Access</span>
-                        <div className="flex-1 h-px bg-gray-700/30" />
-                    </div>
-
-                    <button
-                        onClick={fillTestCredentials}
-                        disabled={loading}
-                        className="w-full py-2.5 px-4 bg-gray-700/20 border border-gray-600/30 text-gray-300 text-sm rounded-lg transition-all duration-300 disabled:opacity-50"
-                    >
-                        Load Test Credentials
-                    </button>
-                </>
+                <button
+                    onClick={fillTestCredentials}
+                    className="w-full py-2.5 bg-gray-700/20 border border-gray-600/30 rounded-lg text-sm text-gray-300"
+                >
+                    Load Test Credentials
+                </button>
             )}
 
-            <div className="text-center mt-6">
-                <p className="text-gray-400 text-sm">
-                    {isSignUp ? "Already have an account?" : "New to the marketplace?"}
-                    <button
-                        type="button"
-                        onClick={() => {
-                            setIsSignUp(!isSignUp);
-                            setError("");
-                            setSuccess(false);
-                        }}
-                        className="text-blue-400 hover:text-blue-300 ml-1 underline"
-                    >
-                        {isSignUp ? "Sign In" : "Sign Up"}
-                    </button>
-                </p>
-            </div>
+            {/* TOGGLE */}
+            <p className="text-center text-sm text-gray-400 mt-6">
+                {isSignUp ? "Already have an account?" : "New to the marketplace?"}
+                <button
+                    onClick={() => {
+                        setIsSignUp(!isSignUp);
+                        setError("");
+                        setSuccess(false);
+                    }}
+                    className="ml-1 text-blue-400 underline"
+                >
+                    {isSignUp ? "Sign In" : "Sign Up"}
+                </button>
+            </p>
         </>
     );
 };

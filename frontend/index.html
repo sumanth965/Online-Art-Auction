@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
 
@@ -8,10 +9,7 @@
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
 
   <!-- SEO -->
   <meta name="description" content="Premium online art auction platform to buy and sell artwork securely." />
@@ -46,7 +44,7 @@
     }
 
     .fallback-logo {
-      font-family: 'Alfa Slab One', cursive;
+      font-family:  cursive;
       font-size: 2.5rem;
       color: #111827;
       margin-bottom: 0.5rem;
@@ -109,9 +107,17 @@
     }
 
     @keyframes pulse {
-      0% { opacity: 0.3; }
-      20% { opacity: 1; }
-      100% { opacity: 0.3; }
+      0% {
+        opacity: 0.3;
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0.3;
+      }
     }
 
     .fallback-noscript {
@@ -129,7 +135,11 @@
     <div class="fallback-wrapper">
       <div class="fallback-card">
 
-        <h1 class="fallback-logo">Online  Art Auction</h1>
+        <h1 class="fallback-logo">Online Art Auction</h1>
+        <!-- <h1
+          className="text-6xl md:text-7xl font-bold mb-8 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600 bg-clip-text text-transparent tracking-tight drop-shadow-xl [font-family:cursive]">
+          Discover Authentic Art
+        </h1> -->
         <p class="fallback-tagline">
           Discover, bid, and collect exclusive artwork from artists worldwide.
         </p>
@@ -169,4 +179,5 @@
   <script type="module" src="/src/main.jsx"></script>
 
 </body>
+
 </html>
