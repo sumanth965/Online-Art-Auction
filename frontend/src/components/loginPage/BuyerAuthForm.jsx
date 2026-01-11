@@ -97,12 +97,14 @@ const BuyerAuthForm = ({
                         localStorage.setItem("buyerToken", res.data.token);
                     }
 
-                    login("Buyer");
+                    // ✅ THIS IS WHERE IT GOES
+                    login("Buyer", res.data.token, res.data.buyer.name);
 
                     setTimeout(() => {
                         navigate("/buyer-dashboard");
                     }, 1500);
                 }
+
             }
         } catch (err) {
             setError(err.response?.data?.message || "Server error. Please try again.");

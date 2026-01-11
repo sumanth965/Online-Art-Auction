@@ -10,7 +10,7 @@ import {
   X,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"; // ✅ global auth hook
+import { useAuth } from "../context/AuthContext";
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -18,24 +18,30 @@ const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  // ✅ Access global authentication state
-  const { isLoggedIn, userRole, logout } = useAuth();
+  // ✅ Auth state
+  const { isLoggedIn, userRole, userName, logout } = useAuth();
 
-  // ✅ Scroll effect
+  /* =========================
+     SCROLL EFFECT
+  ========================= */
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ Navigation handler
+  /* =========================
+     NAV HANDLER
+  ========================= */
   const handleNavClick = (path) => {
     setActiveLink(path);
     setMobileMenuOpen(false);
     navigate(path);
   };
 
-  // ✅ Define navigation links dynamically
+  /* =========================
+     NAV LINKS
+  ========================= */
   const navLinks = [
     { path: "/", label: "Home", icon: Home, show: true },
     { path: "/artworks", label: "Artworks", icon: Palette, show: true },
@@ -65,60 +71,62 @@ const Navigation = () => {
     },
   ];
 
-  const visibleLinks = navLinks.filter((link) => link.show);
+  const visibleLinks = navLinks.filter((l) => l.show);
 
   return (
     <>
-      {/* ✅ Navbar */}
+      {/* ================= NAVBAR ================= */}
       <nav
         className={`sticky top-0 z-50 transition-all duration-300 ${scrolled
-            ? "bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950 shadow-2xl shadow-amber-500/10"
-            : "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"
-          } border-b ${scrolled ? "border-amber-500/40" : "border-amber-500/20"
-          } backdrop-blur-md`}
+            ? "bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950 shadow-2xl shadow-amber-500/10 border-amber-500/40"
+            : "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-amber-500/20"
+          } border-b backdrop-blur-md`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            {/* ✅ Brand */}
+            {/* BRAND */}
             <Link
               to="/"
               onClick={() => handleNavClick("/")}
-              className="flex items-center space-x-2 cursor-pointer group transition-all duration-300"
+              className="flex items-center gap-2 group"
             >
-              <div className="p-2 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg group-hover:shadow-lg group-hover:shadow-amber-500/50 transition-all duration-300">
+              <div className="p-2 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg group-hover:shadow-lg group-hover:shadow-amber-500/50">
                 <Palette className="text-white" size={24} />
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300">
+              <span className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
                 ArtVault
               </span>
             </Link>
 
-            {/* ✅ Desktop Navigation */}
+            {/* DESKTOP LINKS */}
             <div className="hidden lg:flex items-center space-x-1">
               {visibleLinks.map(({ path, label, icon: Icon }) => (
                 <button
                   key={path}
                   onClick={() => handleNavClick(path)}
-                  className={`px-4 py-2 rounded-lg transition-all duration-300 flex items-center gap-2 font-medium group relative ${activeLink === path
+                  className={`px-4 py-2 rounded-lg flex items-center gap-2 font-medium transition-all ${activeLink === path
                       ? "bg-gradient-to-r from-amber-500/30 to-amber-600/20 text-amber-300"
                       : "text-gray-300 hover:text-amber-400"
                     }`}
                 >
-                  <Icon size={18} className="group-hover:scale-110 transition-transform" />
-                  <span>{label}</span>
-                  {activeLink === path && (
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full animate-pulse"></div>
-                  )}
+                  <Icon size={18} />
+                  {label}
                 </button>
               ))}
             </div>
 
-            {/* ✅ Auth Buttons (Desktop) */}
-            <div className="hidden lg:flex items-center space-x-3">
+            {/* DESKTOP AUTH */}
+            <div className="hidden lg:flex items-center gap-4">
+              {isLoggedIn && userName && (
+                <span className="text-sm font-medium text-amber-300">
+                  Hi, <span className="font-semibold">{userName}</span>
+                </span>
+              )}
+
               {!isLoggedIn ? (
                 <button
                   onClick={() => handleNavClick("/login")}
-                  className="px-6 py-2 rounded-lg border-2 border-amber-500 text-amber-400 font-semibold hover:bg-amber-500 hover:text-gray-900 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/50"
+                  className="px-6 py-2 rounded-lg border-2 border-amber-500 text-amber-400 font-semibold hover:bg-amber-500 hover:text-gray-900"
                 >
                   Login
                 </button>
@@ -128,85 +136,69 @@ const Navigation = () => {
                     logout();
                     handleNavClick("/");
                   }}
-                  className="px-6 py-2 rounded-lg border-2 border-red-500 text-red-400 font-semibold hover:bg-red-500 hover:text-gray-900 transition-all duration-300 hover:shadow-lg hover:shadow-red-500/50 flex items-center gap-2"
+                  className="px-6 py-2 rounded-lg border-2 border-red-500 text-red-400 font-semibold hover:bg-red-500 hover:text-gray-900 flex items-center gap-2"
                 >
-                  <LogOut size={18} className="group-hover:scale-110 transition-transform" />
-                  Logout
+                  <LogOut size={18} /> Logout
                 </button>
               )}
             </div>
 
-            {/* ✅ Mobile Menu Button */}
+            {/* MOBILE MENU BUTTON */}
             <button
-              className="lg:hidden text-white p-2 hover:bg-amber-500/20 rounded-lg transition-all duration-300"
+              className="lg:hidden text-white p-2"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? (
-                <X size={24} className="animate-spin" style={{ animationDuration: "0.3s" }} />
-              ) : (
-                <Menu size={24} />
-              )}
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
       </nav>
 
-      {/* ✅ Mobile Overlay */}
+      {/* ================= MOBILE OVERLAY ================= */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden animate-fadeIn"
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
           onClick={() => setMobileMenuOpen(false)}
         />
       )}
 
-      {/* ✅ Mobile Sidebar */}
+      {/* ================= MOBILE MENU ================= */}
       <div
-        className={`fixed top-0 right-0 h-screen w-64 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 border-l border-amber-500/30 z-40 lg:hidden transition-all duration-500 transform ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          } overflow-y-auto shadow-2xl shadow-black/50 animate-slideIn`}
+        className={`fixed top-0 right-0 h-screen w-64 bg-gradient-to-b from-gray-900 to-gray-800 border-l border-amber-500/30 z-40 transform transition-transform duration-500 ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
-        <div className="p-4 border-b border-amber-500/20 flex items-center justify-between">
-          <span className="text-lg font-bold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
-            Menu
-          </span>
-          <button
-            onClick={() => setMobileMenuOpen(false)}
-            className="p-2 hover:bg-amber-500/20 rounded-lg transition-all"
-          >
+        <div className="p-4 border-b border-amber-500/20 flex justify-between">
+          <span className="text-lg font-bold text-amber-400">Menu</span>
+          <button onClick={() => setMobileMenuOpen(false)}>
             <X size={20} className="text-amber-400" />
           </button>
         </div>
 
-        {/* ✅ Mobile Links */}
+        {/* USERNAME (MOBILE) */}
+        {isLoggedIn && userName && (
+          <div className="p-4 text-center text-amber-300 font-medium border-b border-amber-500/20">
+            Hi, {userName}
+          </div>
+        )}
+
         <div className="p-4 space-y-2">
-          {visibleLinks.map(({ path, label, icon: Icon }, index) => (
+          {visibleLinks.map(({ path, label, icon: Icon }) => (
             <button
               key={path}
               onClick={() => handleNavClick(path)}
-              className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 flex items-center gap-3 font-medium group transform hover:translate-x-2 ${activeLink === path
-                  ? "bg-gradient-to-r from-amber-500/40 to-amber-600/20 text-amber-300 shadow-lg shadow-amber-500/20"
-                  : "text-gray-300 hover:text-amber-400 hover:bg-amber-500/10"
-                }`}
-              style={{
-                animation: mobileMenuOpen
-                  ? `slideInLeft 0.3s ease-out ${index * 0.05}s both`
-                  : "none",
-              }}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:text-amber-400 hover:bg-amber-500/10"
             >
-              <Icon size={20} className="group-hover:scale-110 transition-transform" />
-              <span>{label}</span>
-              {activeLink === path && (
-                <div className="ml-auto w-1 h-6 bg-gradient-to-b from-amber-400 to-amber-600 rounded-full"></div>
-              )}
+              <Icon size={20} />
+              {label}
             </button>
           ))}
         </div>
 
-        {/* ✅ Mobile Auth */}
         <div className="p-4 border-t border-amber-500/20 mt-auto">
           {!isLoggedIn ? (
             <button
               onClick={() => handleNavClick("/login")}
-              className="w-full px-4 py-3 rounded-lg border-2 border-amber-500 text-amber-400 font-semibold hover:bg-amber-500 hover:text-gray-900 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/50"
+              className="w-full py-3 rounded-lg border-2 border-amber-500 text-amber-400 font-semibold"
             >
               Login
             </button>
@@ -216,31 +208,13 @@ const Navigation = () => {
                 logout();
                 handleNavClick("/");
               }}
-              className="w-full px-4 py-3 rounded-lg border-2 border-red-500 text-red-400 font-semibold hover:bg-red-500 hover:text-gray-900 transition-all duration-300 hover:shadow-lg hover:shadow-red-500/50 flex items-center justify-center gap-2"
+              className="w-full py-3 rounded-lg border-2 border-red-500 text-red-400 font-semibold flex items-center justify-center gap-2"
             >
               <LogOut size={18} /> Logout
             </button>
           )}
         </div>
       </div>
-
-      {/* ✅ Animations */}
-      <style>{`
-        @keyframes slideInLeft {
-          from { opacity: 0; transform: translateX(20px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes slideIn {
-          from { transform: translateX(100%); }
-          to { transform: translateX(0); }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        .animate-slideIn { animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-        .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
-      `}</style>
     </>
   );
 };

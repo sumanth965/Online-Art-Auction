@@ -94,6 +94,7 @@ const ArtistAuthForm = () => {
           if (rememberMe) {
             localStorage.setItem("artistToken", res.data.token);
           }
+          login("Artist", res.data.token, res.data.artist.name);
 
           setTimeout(() => {
             navigate("/artist-dashboard");
