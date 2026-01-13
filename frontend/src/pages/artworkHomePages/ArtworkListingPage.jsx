@@ -67,7 +67,7 @@ const ArtworkListingPage = ({
                 </h1>
 
                 {/* Filters */}
-                <div className="bg-gray-800 p-6 rounded-2xl mb-8 border border-gray-700">
+                <div className="bg-black p-6 rounded-2xl mb-8 border border-gray-700">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
                         <input
                             type="text"
@@ -118,7 +118,7 @@ const ArtworkListingPage = ({
                 {/* Artwork Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredArtworks.map(artwork => (
-                        <div key={artwork._id} className="group bg-gray-800 rounded-2xl border p-2">
+                        <div key={artwork._id} className="group bg-black rounded-2xl border p-2">
                             <img
                                 src={`http://localhost:5000/uploads/${artwork.image}`}
                                 alt={artwork.title}

@@ -151,7 +151,7 @@ const BidPage = () => {
 
   if (!art) {
     return (
-      <section className="min-h-screen bg-gray-900 py-12 flex items-center justify-center">
+      <section className="min-h-screen bg-black py-12 flex items-center justify-center">
         <div className="bg-red-900/30 border border-red-500 rounded-lg p-6 text-red-400 max-w-md">
           <AlertCircle className="w-6 h-6 mb-2" />
           <p>Artwork not found.</p>
@@ -177,7 +177,7 @@ const BidPage = () => {
 
           {/* Details Section */}
           <div className="md:col-span-2">
-            <div className="bg-gray-800/50 backdrop-blur border border-gray-700 rounded-xl p-8 text-white">
+            <div className="bg-black backdrop-blur border border-gray-700 rounded-xl p-8 text-white">
               <h1 className="text-4xl font-bold mb-3">{art.title}</h1>
               <p className="text-gray-300 mb-6 leading-relaxed">{art.description}</p>
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ThreeBackground from "../components/ThreeBackground";
+import ThreeBackground from "../../components/ThreeBackground";
 
 
 export default function HomePage() {

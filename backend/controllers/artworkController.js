@@ -13,14 +13,15 @@ export const getArtworks = async (req, res) => {
 // Upload artwork
 export const uploadArtwork = async (req, res) => {
   try {
-    const { title, category, basePrice, description } = req.body;
+    const { title, category, basePrice, description, artistName } = req.body;
 
     const newArt = new Artwork({
       title,
       category,
       basePrice,
       description,
-      image: req.file?.filename || null,
+      image: req.file?.filename || null, 
+      artistName,
     });
 
     await newArt.save();

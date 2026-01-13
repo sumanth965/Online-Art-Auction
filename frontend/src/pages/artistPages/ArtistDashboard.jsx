@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Plus, Trash2, Clock } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const ArtistDashboard = () => {
   const [activeTab, setActiveTab] = useState("approved");
@@ -20,6 +21,7 @@ const ArtistDashboard = () => {
     fetchApprovedArtworks();
     fetchPendingArtworks();
   }, []);
+  const { userName } = useAuth(); // logged-in artist name
 
   // Fetch Approved Artworks
   const fetchApprovedArtworks = async () => {
@@ -49,9 +51,13 @@ const ArtistDashboard = () => {
     }
 
     const formData = new FormData();
+
     Object.entries(newArtwork).forEach(([key, value]) => {
       if (value) formData.append(key, value);
     });
+
+    // ✅ Send logged-in artist name
+    formData.append("artistName", userName);
 
     try {
       await axios.post("http://localhost:5000/api/artworks", formData, {
@@ -59,6 +65,7 @@ const ArtistDashboard = () => {
       });
 
       alert("Artwork uploaded and waiting for approval!");
+
       setNewArtwork({
         title: "",
         category: "",
@@ -73,6 +80,7 @@ const ArtistDashboard = () => {
       alert("Error uploading artwork. Please try again.");
     }
   };
+
 
   // Delete Artwork
   const handleDeleteArtwork = async (id) => {
@@ -98,7 +106,7 @@ const ArtistDashboard = () => {
         </h1>
 
         {/* Upload Form */}
-        <div className="bg-gray-800 p-8 rounded-2xl border border-gray-700 mb-8">
+        <div className="bg-black p-8 rounded-2xl border border-gray-700 mb-8">
           <h2 className="text-2xl font-bold mb-6">Upload New Artwork</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -198,7 +206,7 @@ const ArtistDashboard = () => {
                   {approvedArtworks.map((art, idx) => (
                     <div
                       key={art._id}
-                      className="group bg-gradient-to-br from-slate-800 to-slate-800/50 border border-slate-700/50 rounded-2xl overflow-hidden animate-fade-in"
+                      className="group bg-gradient-to-br from-black to-black border border-slate-700/50 rounded-2xl overflow-hidden animate-fade-in"
                       style={{ animationDelay: `${idx * 100}ms` }}
                     >
                       <div className="relative overflow-hidden aspect-square bg-slate-700/30">
@@ -234,7 +242,7 @@ const ArtistDashboard = () => {
 
                         <button
                           onClick={() => handleDeleteArtwork(art._id)}
-                          className="w-full py-2 bg-red-500/20 border border-red-500/30 text-red-400 rounded-lg text-sm font-medium hover:bg-red-500/30 transition-colors duration-200 flex items-center justify-center gap-2"
+                          className="w-full py-2 bg-red-700/20 border border-red-500/30 text-red-400 rounded-lg text-sm font-medium hover:bg-red-500/30 transition-colors duration-200 flex items-center justify-center gap-2"
                         >
                           <Trash2 size={14} /> Delete
                         </button>

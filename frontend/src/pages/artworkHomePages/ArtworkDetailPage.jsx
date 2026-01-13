@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { Heart, Share2, AlertCircle, CheckCircle, Clock, User, Gavel } from "lucide-react";
 
 const ArtworkDetailPage = () => {
@@ -176,10 +176,10 @@ const ArtworkDetailPage = () => {
                         ← Back
                     </button>
                     <div className="flex gap-3">
-                        <button onClick={handleWishlist} className="p-2 md:p-3 bg-gray-700 hover:bg-gray-600 rounded-lg transition">
+                        <button onClick={handleWishlist} className="p-2 md:p-3 bg-gray-900 hover:bg-gray-700 rounded-lg transition">
                             <Heart className={`w-6 h-6 ${isWishlisted ? "fill-red-500 text-red-500" : "text-gray-300"}`} />
                         </button>
-                        <button onClick={handleShare} className="p-2 md:p-3 bg-gray-700 hover:bg-gray-600 rounded-lg transition">
+                        <button onClick={handleShare} className="p-2 md:p-3 bg-gray-900 hover:bg-gray-700 rounded-lg transition">
                             <Share2 className="w-6 h-6 text-gray-300" />
                         </button>
                     </div>
@@ -196,7 +196,7 @@ const ArtworkDetailPage = () => {
                                 className="w-full h-96 md:h-[500px] object-cover"
                             />
                         </div>
-                        <div className="bg-gray-800 rounded-xl p-6 md:p-8 shadow-2xl mb-6">
+                        <div className="bg-black rounded-xl p-6 md:p-8 shadow-2xl mb-6">
                             <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">{art.title}</h1>
                             <p className="text-gray-400 text-base md:text-lg leading-relaxed mb-6">{art.description}</p>
 
@@ -207,21 +207,21 @@ const ArtworkDetailPage = () => {
                                 </div>
                                 <div>
                                     <p className="text-gray-400 text-sm">Artist</p>
-                                    <p className="text-white font-semibold">{art.artist || "Anonymous"}</p>
+                                    <p className="text-white font-semibold">{art.artistName || "Anonymous"}</p>
                                 </div>
                             </div>
 
                             {/* Stats */}
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                <div className="bg-gray-700 p-4 rounded-lg">
+                                <div className="bg-gray-900 p-4 rounded-lg">
                                     <p className="text-gray-400 text-sm mb-1">Base Price</p>
                                     <p className="text-amber-400 text-xl font-bold">₹{art.basePrice}</p>
                                 </div>
-                                <div className="bg-gray-700 p-4 rounded-lg">
+                                <div className="bg-gray-900 p-4 rounded-lg">
                                     <p className="text-gray-400 text-sm mb-1">Total Bids</p>
                                     <p className="text-green-400 text-xl font-bold">{bidsCount}</p>
                                 </div>
-                                <div className="bg-gray-700 p-4 rounded-lg">
+                                <div className="bg-gray-900 p-4 rounded-lg">
                                     <p className="text-gray-400 text-sm mb-1">Category</p>
                                     <p className="text-blue-400 text-xl font-bold">{art.category || "Art"}</p>
                                 </div>
@@ -239,7 +239,7 @@ const ArtworkDetailPage = () => {
                         </div>
 
                         {/* Countdown Timer */}
-                        <div className={`rounded-xl p-6 mb-6 shadow-2xl border ${auctionEnded ? 'bg-red-500/20 border-red-500/50' : 'bg-gray-800 border-gray-700'}`}>
+                        <div className={`rounded-xl p-6 mb-6 shadow-2xl border ${auctionEnded ? 'bg-red-500/20 border-red-500/50' : 'bg-black border-gray-700'}`}>
                             <div className="flex items-center gap-2 mb-2">
                                 <Clock className={`w-5 h-5 ${auctionEnded ? 'text-red-500' : 'text-amber-500'}`} />
                                 <p className={`text-sm font-semibold ${auctionEnded ? 'text-red-400' : 'text-gray-400'}`}>
@@ -300,14 +300,14 @@ const ArtworkDetailPage = () => {
                 </div>
 
                 {/* Bid History */}
-                <div className="mt-8 bg-gray-800 rounded-xl p-6 md:p-8 shadow-2xl">
+                <div className="mt-8 bg-black rounded-xl p-6 md:p-8 shadow-2xl">
                     <h2 className="text-2xl font-bold text-white mb-6">Bid History</h2>
                     {bidHistory.length === 0 ? (
                         <p className="text-gray-400 text-center py-8">No bids placed yet</p>
                     ) : (
                         <div className="space-y-3">
                             {[...bidHistory].reverse().map((bid, idx) => (
-                                <div key={idx} className="flex justify-between items-center bg-gray-700 hover:bg-gray-650 p-4 rounded-lg transition border border-gray-600">
+                                <div key={idx} className="flex justify-between items-center bg-gray-900 hover:bg-gray-650 p-4 rounded-lg transition border border-gray-600">
                                     <div className="flex items-center gap-3">
                                         <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">
                                             {bid.user.charAt(0).toUpperCase()}

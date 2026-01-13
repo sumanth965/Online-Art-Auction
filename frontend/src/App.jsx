@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Pages
 import Dummyy from "./dummyy/dummyy";
 import Navigation from "./pages/Navigation";
-import HomePage from "./pages/MainHomepage";
-import ArtworkListingPage from "./pages/ArtworkListingPage";
-import ArtworkDetailPage from "./pages/ArtworkDetailPage";
+import HomePage from "./pages/artworkHomePages/MainHomepage";
+import ArtworkListingPage from "./pages/artworkHomePages/ArtworkListingPage";
+import ArtworkDetailPage from "./pages/artworkHomePages/ArtworkDetailPage";
 import ArtistDashboard from "./pages/artistPages/ArtistDashboard";
 import BuyerDashboard from "./pages/buyerPages/BuyerDashboard";
 import AdminPanel from "./pages/adminPages/AdminPanel";

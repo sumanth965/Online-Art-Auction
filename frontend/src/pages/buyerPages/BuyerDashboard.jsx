@@ -28,7 +28,7 @@ const BuyerDashboard = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {artworks.map((art) => (
-              <div key={art._id} className="bg-gray-800 p-4 rounded-xl shadow-lg">
+              <div key={art._id} className="bg-black p-4 rounded-xl shadow-lg">
                 <img
                   src={`http://localhost:5000/uploads/${art.image}`}
                   alt={art.title}

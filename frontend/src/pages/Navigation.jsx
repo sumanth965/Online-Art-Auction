@@ -78,8 +78,8 @@ const Navigation = () => {
       {/* ================= NAVBAR ================= */}
       <nav
         className={`sticky top-0 z-50 transition-all duration-300 ${scrolled
-            ? "bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950 shadow-2xl shadow-amber-500/10 border-amber-500/40"
-            : "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-amber-500/20"
+            ? "bg-gradient-to-r from-black via-gray-900 to-gray-950 shadow-2xl shadow-amber-500/10 border-amber-500/40"
+            : "bg-gradient-to-r from-black via-gray-900 to-gray-900 border-amber-500/20"
           } border-b backdrop-blur-md`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
