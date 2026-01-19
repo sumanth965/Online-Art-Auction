@@ -211,7 +211,7 @@ const ArtistDashboard = () => {
                     >
                       <div className="relative overflow-hidden aspect-square bg-slate-700/30">
                         <img
-                          src={`http://localhost:5000/uploads/${art.image}`}
+                          src={`https://online-art-auction.onrender.com/uploads/${art.image}`}
                           alt={art.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
