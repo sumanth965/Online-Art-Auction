@@ -27,7 +27,7 @@ const BuyerAuthForm = ({
     const navigate = useNavigate();
     const { login } = useAuth();
 
-    const API_URL = "http://localhost:5000/api/buyers";
+    const API_URL = "https://online-art-auction.onrender.com/api/buyers";
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");

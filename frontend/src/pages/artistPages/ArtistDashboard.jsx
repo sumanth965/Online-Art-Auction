@@ -26,7 +26,7 @@ const ArtistDashboard = () => {
   // Fetch Approved Artworks
   const fetchApprovedArtworks = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/artworks");
+      const res = await axios.get("https://online-art-auction.onrender.com/api/artworks");
       setApprovedArtworks(res.data);
     } catch (err) {
       console.error("Error fetching approved artworks:", err);
@@ -36,7 +36,7 @@ const ArtistDashboard = () => {
   // Fetch Pending Artworks
   const fetchPendingArtworks = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/artworks/pending");
+      const res = await axios.get("https://online-art-auction.onrender.com/api/artworks/pending");
       setPendingArtworks(res.data);
     } catch (err) {
       console.error("Error fetching pending artworks:", err);
@@ -60,7 +60,7 @@ const ArtistDashboard = () => {
     formData.append("artistName", userName);
 
     try {
-      await axios.post("http://localhost:5000/api/artworks", formData, {
+      await axios.post("https://online-art-auction.onrender.com/api/artworks", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -89,7 +89,7 @@ const ArtistDashboard = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:5000/api/artworks/${id}`);
+      await axios.delete(`https://online-art-auction.onrender.com/api/artworks/${id}`);
       setApprovedArtworks((prev) => prev.filter((a) => a._id !== id));
       alert("Artwork deleted successfully.");
     } catch (err) {

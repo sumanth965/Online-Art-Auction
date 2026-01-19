@@ -34,7 +34,7 @@ const ArtistAuthForm = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const API_URL = "http://localhost:5000/api/artists";
+  const API_URL = "https://online-art-auction.onrender.com/api/artists";
 
   // 🔑 Submit Handler
   const handleSubmit = async (e) => {

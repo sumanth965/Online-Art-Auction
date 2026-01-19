@@ -25,7 +25,7 @@ const ArtworkDetailPage = () => {
     // inside fetchArt
     const fetchArt = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/artworks/${id}`);
+            const res = await axios.get(`https://online-art-auction.onrender.com/api/artworks/${id}`);
             setArt(res.data);
             setBidHistory(res.data.bids || []);
 
@@ -69,7 +69,7 @@ const ArtworkDetailPage = () => {
 
                     try {
                         // Send request to server to finalize auction
-                        const res = await axios.post(`http://localhost:5000/api/artworks/finalize/${id}`, {
+                        const res = await axios.post(`https://online-art-auction.onrender.com/api/artworks/finalize/${id}`, {
                             highestBid: art.highestBid,
                             winner: bidHistory.length > 0 ? bidHistory[bidHistory.length - 1].user : null
                         });
@@ -117,7 +117,7 @@ const ArtworkDetailPage = () => {
         setBidding(true);
         try {
             const res = await axios.post(
-                `http://localhost:5000/api/artworks/bid/${id}`,
+                `https://online-art-auction.onrender.com/api/artworks/bid/${id}`,
                 { amount: bidAmount, user: userData.name }
             );
             setSuccess(res.data.message || "Bid placed successfully!");
@@ -191,7 +191,7 @@ const ArtworkDetailPage = () => {
                     <div className="lg:col-span-2">
                         <div className="bg-gray-800 rounded-xl overflow-hidden shadow-2xl mb-6">
                             <img
-                                src={`http://localhost:5000/uploads/${art.image}`}
+                                src={`https://online-art-auction.onrender.com/uploads/${art.image}`}
                                 alt={art.title}
                                 className="w-full h-96 md:h-[500px] object-cover"
                             />

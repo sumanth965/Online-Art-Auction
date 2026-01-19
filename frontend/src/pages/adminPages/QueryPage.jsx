@@ -22,7 +22,7 @@ const QueryPage = () => {
     const runQuery = async () => {
         if (!queryId) return alert("Please select a query first!");
         const { data } = await axios.post(
-            "http://localhost:5000/api/queries/run",
+            "https://online-art-auction.onrender.com/api/queries/run",
             { queryId }
         );
         setResult(data);

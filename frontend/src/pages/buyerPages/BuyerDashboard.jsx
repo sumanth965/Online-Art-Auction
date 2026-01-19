@@ -11,7 +11,7 @@ const BuyerDashboard = () => {
 
   const fetchApprovedArtworks = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/artworks");
+      const res = await axios.get("https://online-art-auction.onrender.com/api/artworks");
       setArtworks(res.data);
     } catch (err) {
       console.error("Error fetching approved artworks:", err);
@@ -30,7 +30,7 @@ const BuyerDashboard = () => {
             {artworks.map((art) => (
               <div key={art._id} className="bg-black p-4 rounded-xl shadow-lg">
                 <img
-                  src={`http://localhost:5000/uploads/${art.image}`}
+                  src={`https://online-art-auction.onrender.com/uploads/${art.image}`}
                   alt={art.title}
                   className="w-full h-56 object-cover rounded-lg"
                 />

@@ -19,7 +19,7 @@ const ArtworkListingPage = ({
     // Fetch Artworks
     const fetchArtworks = async () => {
         try {
-            const res = await axios.get("http://localhost:5000/api/artworks");
+            const res = await axios.get("https://online-art-auction.onrender.com/api/artworks");
             setArtworks(res.data);
             setFilteredArtworks(res.data);
         } catch (err) {
@@ -120,7 +120,7 @@ const ArtworkListingPage = ({
                     {filteredArtworks.map(artwork => (
                         <div key={artwork._id} className="group bg-black rounded-2xl border p-2">
                             <img
-                                src={`http://localhost:5000/uploads/${artwork.image}`}
+                                src={`https://online-art-auction.onrender.com/uploads/${artwork.image}`}
                                 alt={artwork.title}
                                 className="w-full h-48 object-cover rounded-xl"
                             />

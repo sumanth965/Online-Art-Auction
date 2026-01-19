@@ -52,7 +52,7 @@ const BidPage = () => {
 
   const fetchArtDetails = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/artworks/${id}`);
+      const res = await axios.get(`https://online-art-auction.onrender.com/api/artworks/${id}`);
       setArt(res.data);
       setBidHistory(res.data.bidHistory || []);
     } catch (err) {
@@ -99,7 +99,7 @@ const BidPage = () => {
     setBidding(true);
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/artworks/bid/${id}`,
+        `https://online-art-auction.onrender.com/api/artworks/bid/${id}`,
         { amount: parseFloat(bidAmount), user: userName.trim() }
       );
 
@@ -169,7 +169,7 @@ const BidPage = () => {
           {/* Image Section */}
           <div className="md:col-span-1">
             <img
-              src={`http://localhost:5000/uploads/${art.image}`}
+              src={`https://online-art-auction.onrender.com/uploads/${art.image}`}
               alt={art.title}
               className="w-full h-96 object-cover rounded-xl shadow-2xl"
             />

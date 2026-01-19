@@ -34,7 +34,7 @@ const AdminPanel = () => {
                 {/* Artwork Image */}
                 {art.image && (
                   <img
-                    src={`http://localhost:5000/uploads/${art.image}`}
+                    src={`https://online-art-auction.onrender.com/uploads/${art.image}`}
                     alt={art.title}
                     className="w-40 h-40 object-cover rounded-xl border border-gray-600"
                   />
