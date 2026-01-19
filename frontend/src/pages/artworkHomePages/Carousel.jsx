@@ -237,10 +237,10 @@ export default function AdvancedArtAuction() {
           <p className="text-xs tracking-[0.2em] text-amber-400/70 uppercase font-light animate-fadeIn">
             Discover Premium Art
           </p>
-          <h1 className="text-6xl md:text-8xl font-serif font-bold bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent leading-tight animate-slideInLeft"
+          {/* <h1 className="text-6xl md:text-8xl font-serif font-bold bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent leading-tight animate-slideInLeft"
             style={{ animationDelay: "0.1s" }}>
             Art Auction
-          </h1>
+          </h1> */}
           <p className="text-slate-400 text-lg tracking-wide animate-slideInRight"
             style={{ animationDelay: "0.2s" }}>
             Exquisite artworks from visionary creators
@@ -249,7 +249,7 @@ export default function AdvancedArtAuction() {
       </header>
 
       {/* Stats Section */}
-      <div
+      {/* <div
         ref={(el) => el && (elementRefs.current.stats = el)}
         className="relative z-10 px-4 sm:px-6 py-12 max-w-6xl mx-auto"
       >
@@ -271,7 +271,7 @@ export default function AdvancedArtAuction() {
             );
           })}
         </div>
-      </div>
+      </div> */}
 
       {/* Search & Filter Bar */}
       <div className="relative z-10 px-4 sm:px-6 py-8 max-w-6xl mx-auto">
