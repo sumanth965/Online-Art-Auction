@@ -1,169 +1,220 @@
+<h1 align="center">🎨 Online Art Auction System</h1>
+<h3 align="center">MongoDB-Based Web Application | MERN Project</h3>
 
-MongoDB Projects (C Section)
-"Based on the given scenario, design an appropriate MongoDB schema, prepare a schema diagram (or ER diagram equivalent), and design a simple user interface (UI) to interact with the system."
-Submission Date: November 10, 2025 to November 15, 2025
+<p align="center">
+  An <b>Online Art Auction Platform</b> where artists upload artworks for auction
+  and buyers place competitive bids. The system tracks bids, determines winners,
+  and manages sold or unsold artworks using a MongoDB-driven backend.
+</p>
 
-10. Online Art Auction
-Description:
-Artists upload their artworks for auction. Each piece has title, category, base price, and artist. Bidders place bids, and the highest bid wins. Artworks can be sold or unsold. Auctions record bids, dates, and buyers.
-👉 Collections: artworks, artists, bids, buyers
-👉 Attributes: artworkTitle, category, artistName, basePrice, bidAmount, buyerName, soldStatus
-Queries:
-1.	List artworks sold above ₹1 lakh.
-2.	Find artists whose works were unsold.
-3.	Show bidders who won multiple auctions.
-4.	Calculate average bid per artwork.
-5.	Retrieve artworks bid on by 5+ users.
-6.	Identify highest bid artwork in each category.
-7.	Show auctions where no bids were placed.
-8.	Find artists featured in multiple auctions.
-9.	Retrieve top 3 bidders by total spend.
-10.	List categories with the most artworks.
+<p align="center">
+  🔗 <strong>Live Demo:</strong>
+  <a href="https://online-art-auction.vercel.app/" target="_blank">
+    https://online-art-auction.vercel.app/
+  </a>
+  <br/>
+  📁 <strong>GitHub Repository:</strong>
+  <a href="https://github.com/sumanth965/Online-Art-Auction.git" target="_blank">
+    https://github.com/sumanth965/Online-Art-Auction.git
+  </a>
+</p>
 
+<hr/>
 
-"Based on the above scenario, design an appropriate MongoDB schema, prepare a schema diagram (or ER diagram equivalent), and design a simple user interface (UI) to interact with the system."
-Submission Date: November 10, 2025 to November 15, 2025
+<h2>📌 Academic Context</h2>
 
+<p>
+<b>Course:</b> MongoDB Projects (C Section) <br/>
+<b>Objective:</b> Design a MongoDB schema, prepare a schema diagram (ER-equivalent),
+and implement a simple UI to interact with the system.
+</p>
 
+<p>
+<b>Submission Window:</b> <br/>
+🗓 <b>November 10, 2025 – November 15, 2025</b>
+</p>
 
+<hr/>
 
+<h2>🖼 Online Art Auction – Description</h2>
 
+<ul>
+  <li>Artists upload artworks for auction</li>
+  <li>Each artwork has a title, category, base price, and artist</li>
+  <li>Buyers place bids on artworks</li>
+  <li>The highest bid wins the auction</li>
+  <li>Artworks can be marked as <b>sold</b> or <b>unsold</b></li>
+  <li>Auctions maintain bid history, dates, and winning buyers</li>
+</ul>
 
+<hr/>
 
-Ah! Now that you have a **Buyer Dashboard** and a **Bid Page**, we can brainstorm some **real-world features** to make your auction platform much more interactive and professional. Here's a structured list:
+<h2>🧠 MongoDB Collections</h2>
 
----
+<ul>
+  <li><b>artists</b></li>
+  <li><b>artworks</b></li>
+  <li><b>bids</b></li>
+  <li><b>buyers</b></li>
+</ul>
 
-## **1️⃣ User Account & Authentication**
+<h3>📋 Key Attributes</h3>
 
-* Register/Login for **buyers and artists**.
-* Show bids placed by a user in a **user profile**.
-* Use **JWT tokens** for secure API calls.
-* Restrict bidding to **registered users only**.
+<ul>
+  <li>artworkTitle</li>
+  <li>category</li>
+  <li>artistName</li>
+  <li>basePrice</li>
+  <li>bidAmount</li>
+  <li>buyerName</li>
+  <li>soldStatus</li>
+</ul>
 
----
+<hr/>
 
-## **2️⃣ Live Bidding / Real-Time Updates**
+<h2>🗂 MongoDB Schema Design (Logical)</h2>
 
-* Use **WebSockets (Socket.IO)** or **Firebase Realtime DB** to update highest bid in real-time.
-* Show **countdown timers** for auction ending time.
-* Highlight **current highest bidder**.
+<pre>
+Artists
+- _id
+- artistName
+- email
+- artworks[]
 
----
+Artworks
+- _id
+- artworkTitle
+- category
+- basePrice
+- artistId
+- soldStatus
 
-## **3️⃣ Notifications**
+Buyers
+- _id
+- buyerName
+- email
 
-* Notify users when:
+Bids
+- _id
+- artworkId
+- buyerId
+- bidAmount
+- bidDate
+</pre>
 
-  * Someone outbids them.
-  * Auction ends.
-  * Artwork is approved/rejected.
-* Can be implemented via **emails or in-app notifications**.
+<p>
+This schema follows a <b>normalized MongoDB design</b> with references to efficiently
+handle auctions, bidding history, and analytics queries.
+</p>
 
----
+<hr/>
 
-## **4️⃣ Bidding History**
+<h2>📊 MongoDB Queries Implemented</h2>
 
-* Show **list of all bids** for each artwork on Bid Page.
-* Include:
+<ul>
+  <li>List artworks sold above ₹1,00,000</li>
+  <li>Find artists whose artworks were unsold</li>
+  <li>Show bidders who won multiple auctions</li>
+  <li>Calculate average bid per artwork</li>
+  <li>Retrieve artworks bid on by 5 or more users</li>
+  <li>Identify highest bid artwork in each category</li>
+  <li>Show auctions where no bids were placed</li>
+  <li>Find artists featured in multiple auctions</li>
+  <li>Retrieve top 3 bidders by total spending</li>
+  <li>List categories with the highest number of artworks</li>
+</ul>
 
-  * Bidder name (or anonymized)
-  * Amount
-  * Timestamp
-* Helps transparency and trust.
+<hr/>
 
----
+<h2>💻 User Interface (UI)</h2>
 
-## **5️⃣ Search & Filter**
+<h3>👤 Buyer Dashboard</h3>
+<ul>
+  <li>Browse artworks by category</li>
+  <li>View current highest bids</li>
+  <li>Track auctions participated in</li>
+</ul>
 
-* On Buyer Dashboard, add filters:
+<h3>💰 Bid Page</h3>
+<ul>
+  <li>Place bids in real time</li>
+  <li>View bidding history</li>
+  <li>Highest bid highlighting</li>
+</ul>
 
-  * **Category** (Digital, Portrait, Landscape)
-  * **Price Range**
-  * **Artist Name**
-* Add **search bar** for artwork title or artist.
+<h3>🎨 Artist Panel</h3>
+<ul>
+  <li>Upload new artworks</li>
+  <li>View auction status</li>
+  <li>Track sold / unsold artworks</li>
+</ul>
 
----
+<hr/>
 
-## **6️⃣ Ratings & Reviews**
+<h2>🧠 Tech Stack</h2>
 
-* Buyers can **rate & review** artworks.
-* Display **average rating** on Dashboard cards.
-* Helps buyers decide which artwork to bid on.
+<table>
+  <tr>
+    <th align="left">Layer</th>
+    <th align="left">Technology</th>
+  </tr>
+  <tr>
+    <td>Frontend</td>
+    <td>React.js, HTML, CSS</td>
+  </tr>
+  <tr>
+    <td>Backend</td>
+    <td>Node.js, Express.js</td>
+  </tr>
+  <tr>
+    <td>Database</td>
+    <td>MongoDB</td>
+  </tr>
+  <tr>
+    <td>Deployment</td>
+    <td>Vercel</td>
+  </tr>
+</table>
 
----
+<hr/>
 
-## **7️⃣ Sorting Options**
+<h2>📁 Project Structure</h2>
 
-* Sort artworks by:
+<pre>
+Online-Art-Auction/
+├── backend/
+│   ├── models/
+│   ├── controllers/
+│   ├── routes/
+│   └── server.js
+│
+├── frontend/
+│   ├── src/
+│   ├── components/
+│   └── pages/
+│
+└── README.md
+</pre>
 
-  * Highest bid
-  * Base price
-  * Latest added
-  * Ending soon (if auction time is added)
+<hr/>
 
----
+<h2>📜 License</h2>
+<p>This project is developed for <b>academic purposes</b> and is licensed under the MIT License.</p>
 
-## **8️⃣ Auction Timer**
+<hr/>
 
-* Each artwork can have an **auction end date/time**.
-* Show countdown timer on dashboard and bid page.
-* After timer ends, artwork is **sold to highest bidder**.
+<h2>👨‍💻 Author</h2>
 
----
+<p>
+<b>Sumanth</b><br/>
+GitHub:
+<a href="https://github.com/sumanth965" target="_blank">
+  https://github.com/sumanth965
+</a>
+</p>
 
-## **9️⃣ Sold Status & History**
+<hr/>
 
-* Update `soldStatus` when auction ends.
-* Buyers can see **past purchases**.
-* Artists can see **sold artworks and earnings**.
-
----
-
-## **🔟 Wishlist / Favorites**
-
-* Buyers can **bookmark artworks** for later.
-* Can be implemented as a **favorites array in user schema**.
-
----
-
-## **1️⃣1️⃣ Payment Integration**
-
-* Integrate payment (Stripe / PayPal) for **winning bids**.
-* Secure checkout page after auction ends.
-
----
-
-## **1️⃣2️⃣ UI/UX Improvements**
-
-* Card animations, hover effects.
-* Dark/light theme toggle.
-* Responsive design for mobile users.
-* Modal popups for artwork details instead of navigating to a separate page.
-
----
-
-## **1️⃣3️⃣ Analytics for Artists**
-
-* Dashboard shows:
-
-  * Number of bids per artwork.
-  * Total earnings.
-  * Highest bid trends.
-
----
-
-## **1️⃣4️⃣ Admin Controls**
-
-* Admin can approve/reject artworks.
-* View all bids.
-* Ban suspicious users.
-
----
-
-💡 **Next Step Suggestion:**
-We can **upgrade Buyer Dashboard** to include **search, filter, and real-time highest bid updates**. That will make it much closer to a real auction platform.
-
-I can draft that **enhanced Buyer Dashboard with live bid updates and filters** if you want.
-
-Do you want me to do that next?
+<p align="center">
+  ⭐ If you like this project, don’t forget to give it a star!
+</p>
